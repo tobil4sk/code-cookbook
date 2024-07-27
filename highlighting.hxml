@@ -3,7 +3,7 @@
 -lib hxnodejs
 -lib highlighter
 -lib markdown
--lib hxtemplo
+-lib hxtemplo:git:https://github.com/Simn/hxtemplo.git
 -lib hxparse
 -js bin/patch.js
 -cmd node bin/patch.js

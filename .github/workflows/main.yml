@@ -1,0 +1,63 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Setup Haxe
+        uses: krdlab/setup-haxe@v1
+        with:
+          haxe-version: 4.3.5
+
+      # we are using this version in order to build vscode-textmate
+      - name: Setup Node
+        uses: actions/setup-node@v1
+
+      - name: Install
+        # at some point all npm needs to be in package.json
+        run: |
+          npm install
+          npm install -g less@2.7
+          npm install -g less-plugin-clean-css@1.5
+          haxelib install CodeCookBook-neko.hxml --always --quiet
+          haxelib install highlighting.hxml --always --quiet
+          haxelib list
+
+      - name: Setup Pages
+        id: pages_config
+        uses: actions/configure-pages@v5
+
+      - name: Generate website
+        run: |
+          haxe CodeCookBook-neko.hxml
+          haxe highlighting.hxml
+        env:
+          GHP_ROOT: ${{steps.pages_config.outputs.base_url}}
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./output
+
+  deploy:
+    if: github.ref == 'refs/heads/master'
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{steps.deployment.outputs.page_url}}
+    steps:
+      - name: Deploy artifact
+        id: deployment
+        uses: actions/deploy-pages@v4

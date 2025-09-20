@@ -7,3 +7,6 @@
 [submodule "grammars/xml.tmbundle"]
 	path = grammars/xml.tmbundle
 	url = https://github.com/textmate/xml.tmbundle.git
+[submodule "grammars/c.tmbundle"]
+	path = grammars/c.tmbundle
+	url = https://github.com/textmate/c.tmbundle

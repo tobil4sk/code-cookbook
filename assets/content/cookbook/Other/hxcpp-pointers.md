@@ -85,7 +85,7 @@ Function signatures.
 
 `cpp.Pointer` is an actual C++ class implemented in the hxcpp runtime, so if you had the following c function which takes in a function pointer.
 
-```c++
+```cpp
 typedef void(*bar)(int*)
 
 void foo(bar func) {}
@@ -108,7 +108,7 @@ That `fromStaticFunction` call will generate a function pointer with the signatu
 
 This is the last pointer types and like `cpp.RawPointer` it generates raw C pointers in the output code, the key difference is that this type does not support array access and will auto de-reference when accessing the underlying data. This means it's ideal for representing pointers to objects. E.g. the following C++
 
-```c++
+```cpp
 struct Bar {
   int baz();
 };

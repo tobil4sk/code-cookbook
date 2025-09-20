@@ -10,6 +10,7 @@ class Highlighting {
 		File.saveContent("bin/javascript.json", Json.stringify(CSON.parse(File.getContent("grammars/language-javascript/grammars/javascript.cson"))));
 
 		var grammarFiles = [
+			"cpp" => "grammars/c.tmbundle/Syntaxes/C++.plist",
 			"haxe" => "grammars/haxe-TmLanguage/haxe.tmLanguage",
 			"hxml" => "grammars/haxe-TmLanguage/hxml.tmLanguage",
 			"html" => "grammars/xml.tmbundle/Syntaxes/XML.plist",
